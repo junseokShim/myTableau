@@ -16,6 +16,12 @@ function parseJSON(str) {
 }
 
 const ParentComponent = (props) => {
+
+  const style = {
+    borderBottom: '1px solid #e0e0e0',
+    paddingBottom: '1rem',
+  };
+
   if (props.data.length <= 0 || props.columns.length <= 0 ){
     return (
       <div>
@@ -29,8 +35,7 @@ const ParentComponent = (props) => {
       </div>
     );
   }
-  console.log(props)
-  console.log(props.data)
+  
 
   // const pbr = parseJSON(props.receivedData).pbr
   // const per = parseJSON(props.receivedData).per
@@ -39,15 +44,26 @@ const ParentComponent = (props) => {
   return (
     <div>
       <DetailSection title="Basic graph">
-        <Grid item xs={12}>
-          <LineChart
-          data = {props.data}
-          />
-          <BarChart/>
-          <CarManufacturersDonutChart/>
-        </Grid>
+        <Grid container spacing={3}>
+          <Grid item xs={6} style={style}>
+            <CarManufacturersDonutChart />
+          </Grid>
+          <Grid item xs={6} style={style}>
+            <BarChart 
+            data={props.data}
+            columns={props.columns}
+            />
+          </Grid>
 
+          <Grid item xs={12} style={style}>
+            <LineChart 
+            data={props.data}
+            columns={props.columns}
+            />
+          </Grid>
+        </Grid>
       </DetailSection>
+
     </div>
   );
 };

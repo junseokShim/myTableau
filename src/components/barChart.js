@@ -5,39 +5,38 @@ import highchartsWhiteTheme from 'highcharts/themes/grid-light';
 
 highchartsWhiteTheme(Highcharts);
 
-class BarChart extends Component {
-  render() {
-    const options = {
-      chart: {
-        type: 'bar'
-      },
+const BarChart = (props) => {
+  const options = {
+    
+    chart: {
+      type: 'bar'
+    },
+    title: {
+      text: 'Sample Bar Chart'
+    },
+    xAxis: {
+      categories: ['Apples', 'Bananas', 'Oranges']
+    },
+    yAxis: {
       title: {
-        text: 'Sample Bar Chart'
-      },
-      xAxis: {
-        categories: ['Apples', 'Bananas', 'Oranges']
-      },
-      yAxis: {
-        title: {
-          text: 'Fruit Eaten'
-        }
-      },
-      series: [{
-        name: 'Jane',
-        data: [1, 0, 4]
-      }, {
-        name: 'John',
-        data: [5, 7, 3]
-      }]
-    };
+        text: 'Fruit Eaten'
+      }
+    },
+    series: [{
+      name: 'Jane',
+      data: [1, 0, 4]
+    }, {
+      name: 'John',
+      data: [5, 7, 3]
+    }]
+  };
 
-    return (
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={options}
-      />
-    );
-  }
+  return (
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={options}
+    />
+  );
 }
 
 export default BarChart;
