@@ -1,49 +1,68 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import highchartsWhiteTheme from 'highcharts/themes/grid-light';
 
 highchartsWhiteTheme(Highcharts);
 
-class LineChart extends Component {
-  render() {
-    const options = {
-      chart: {
-        type: 'line'
-      },
-      title: {
-        text: 'Sample Line Chart'
-      },
-      xAxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-      },
-      yAxis: {
-        title: {
-          text: 'Temperature (°C)'
-        }
-      },
-      series: [{
-        name: 'Tokyo',
-        data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-      }, {
-        name: 'New York',
-        data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
-      }, {
-        name: 'Berlin',
-        data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
-      }, {
-        name: 'London',
-        data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-      }]
-    };
+const LineChart = (props) => {
+  const datas = props.data
 
-    return (
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={options}
-      />
-    );
-  }
-}
+  const x_arr = []
+  const temp_arr = []
+  const humid_arr = []
+
+  const consumption_1 = []
+  const consumption_2 = []
+  const consumption_3 = []
+
+  for(let i=0; i<datas.length; i+=1000) x_arr.push(datas[i].Datetime)
+  for(let i=0; i<datas.length; i+=1000) temp_arr.push(parseFloat(datas[i].Temperature))
+  for(let i=0; i<datas.length; i+=1000) humid_arr.push(parseFloat(datas[i].Humidity/10))
+
+  for(let i=0; i<datas.length; i+=1000) consumption_1.push(datas[i].PowerConsumption_Zone1/1000)
+  for(let i=0; i<datas.length; i+=1000) consumption_2.push(datas[i].PowerConsumption_Zone2/1000)
+  for(let i=0; i<datas.length; i+=1000) consumption_3.push(datas[i].PowerConsumption_Zone3/1000)
+
+  const options = {
+    chart: {
+      type: 'line'
+    },
+    title: {
+      text: 'Energy Comsuption Visualization Chart'
+    },
+    xAxis: {
+      categories: x_arr
+    },
+    yAxis: {
+      title: {
+        text: 'Temperature (°C) & Energy Consumption'
+      }
+    },
+    series: [{
+      name: 'Temperature',
+      data: temp_arr
+    }, {
+      name: 'Humidity',
+      data: humid_arr
+    }, {
+      name: 'Comsumtion 1 (KW)',
+      data: consumption_1
+    }, {
+      name: 'Comsumtion 2 (KW)',
+      data: consumption_2
+    }, {
+      name: 'Comsumtion 3 (KW)',
+      data: consumption_3
+    }]
+  };
+
+  return (
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={options}
+    />
+  );
+};
 
 export default LineChart;

@@ -31,7 +31,7 @@ const App = () => {
       </Grid>
       <Grid item xs={8} style={{ border: "0.5px solid #ccc", padding: "10px" }}>
         <Grid container spacing={1}>
-          <Grid item xs={8}>
+          <Grid item xs={12}>
             <ParentComponent
             data={data}
             columns = {columns}/>

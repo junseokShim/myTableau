@@ -40,7 +40,9 @@ const ParentComponent = (props) => {
     <div>
       <DetailSection title="Basic graph">
         <Grid item xs={12}>
-          <LineChart/>
+          <LineChart
+          data = {props.data}
+          />
           <BarChart/>
           <CarManufacturersDonutChart/>
         </Grid>
