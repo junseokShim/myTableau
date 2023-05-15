@@ -19,7 +19,8 @@ const getLineChartData = (data, columns) => {
       }
       series_js.push({
         name: columns[j],
-        data: series
+        data: series,
+        visible: false
       })
     }
   

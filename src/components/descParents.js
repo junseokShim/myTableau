@@ -1,46 +1,37 @@
-import { Typography } from "@material-ui/core";
+import { useState } from "react";
+import { Typography, IconButton } from "@material-ui/core";
 import DetailSection from "./description";
 import { Grid } from "@material-ui/core";
 import LineChart from "./normalChart";
 import BarChart from "./barChart";
 import CarManufacturersDonutChart from "./DonutChart";
 
-function parseJSON(str) {
-  try {
-    const json = JSON.parse(str);
-    return json;
-  } catch (err) {
-    console.error(`Error parsing JSON ${err}`);
-    return null;
-  }
-}
-
 const ParentComponent = (props) => {
+  const [lineCharts, setLineCharts] = useState([]);
 
   const style = {
     borderBottom: '1px solid #e0e0e0',
     paddingBottom: '1rem',
   };
 
-  if (props.data.length <= 0 || props.columns.length <= 0 ){
+  if (props.data.length <= 0 || props.columns.length <= 0 ) {
     return (
       <div>
         <DetailSection title="Upload the CSV FIle">
           <Grid item xs={12}>
-              <Typography variant="body1" style={{ marginBottom: "1rem" }}>
+            <Typography variant="body1" style={{ marginBottom: "1rem" }}>
               if you upload the csv file, a normal analysis data will be drawn
-              </Typography>
+            </Typography>
           </Grid>
         </DetailSection>
       </div>
     );
   }
+
+  const addLineChart = () => {
+    setLineCharts([...lineCharts, <LineChart data={props.data} columns={props.columns} />]);
+  };
   
-
-  // const pbr = parseJSON(props.receivedData).pbr
-  // const per = parseJSON(props.receivedData).per
-
-  // console.log(received_datas.pbr, received_datas.per)
   return (
     <div>
       <DetailSection title="Basic graph">
@@ -49,21 +40,29 @@ const ParentComponent = (props) => {
             <CarManufacturersDonutChart />
           </Grid>
           <Grid item xs={6} style={style}>
-            <BarChart 
-            data={props.data}
-            columns={props.columns}
-            />
+            <BarChart data={props.data} columns={props.columns} />
           </Grid>
 
+          <Grid
+            item
+            xs={12}
+            style={{
+              ...style,
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h5">Line Charts</Typography>
+            <IconButton onClick={addLineChart}>+</IconButton>
+          </Grid>
           <Grid item xs={12} style={style}>
-            <LineChart 
-            data={props.data}
-            columns={props.columns}
-            />
+            {lineCharts.map((chart, index) => (
+              <div key={index}>{chart}</div>
+            ))}
           </Grid>
         </Grid>
       </DetailSection>
-
     </div>
   );
 };

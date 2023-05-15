@@ -16,7 +16,7 @@ const LineChart = (props) => {
       type: 'line'
     },
     title: {
-      text: 'Energy Consumption Visualization Chart'
+      text: 'Cusmotized Line Chart'
     },
     legend: {
       layout: 'vertical',
@@ -29,7 +29,7 @@ const LineChart = (props) => {
     },
     yAxis: {
       title: {
-        text: 'Temperature (°C) & Energy Consumption'
+        text: 'Selected columns by you'
       }
     },
     series: series_js
