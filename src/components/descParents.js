@@ -4,7 +4,7 @@ import DetailSection from "./description";
 import { Grid } from "@material-ui/core";
 import LineChart from "./normalChart";
 import BarChart from "./barChart";
-import CarManufacturersDonutChart from "./DonutChart";
+import DonutChart from "./DonutChart";
 
 const ParentComponent = (props) => {
   const [lineCharts, setLineCharts] = useState([]);
@@ -37,7 +37,10 @@ const ParentComponent = (props) => {
       <DetailSection title="Basic graph">
         <Grid container spacing={3}>
           <Grid item xs={6} style={style}>
-            <CarManufacturersDonutChart />
+            <DonutChart
+            chartTitle = {"Oper Mode"}
+            selectedCols = {"운전모드"}
+            data = {props.data} />
           </Grid>
           <Grid item xs={6} style={style}>
             <BarChart data={props.data} columns={props.columns} />
