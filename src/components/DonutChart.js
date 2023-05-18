@@ -6,6 +6,7 @@ import highchartsWhiteTheme from 'highcharts/themes/grid-light';
 highchartsWhiteTheme(Highcharts);
 
 const DonutChart = ({ chartTitle, selectedCols, data }) => {
+  console.log("Tlkf")
   const selecteDataArray = data.map(item => item[selectedCols]);
   const counts = selecteDataArray.reduce((acc, curr) => {
     if (curr in acc) {
